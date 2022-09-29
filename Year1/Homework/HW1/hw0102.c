@@ -1,13 +1,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 char Separator[] = "--------\n";
-
-int GetErrorMsg(){
-    return 
-}
 
 int GetErrorCode(){
     srand(time(0));
@@ -42,7 +37,7 @@ void GetDigits(int Num, int Type, int IsAns) {
     while (Num != 0) {
         tmp1 = Num % 10;
         arr[i] = tmp1;
-        GetErrorMessagei += 1;
+        i += 1;
         Num /= 10;
     };
     switch(i){
@@ -73,7 +68,7 @@ int validate(int state, int num){
     if (state == 0){
         printf("Input must be an integer.\n");
         return 1;
-        }
+    }
     if (num > 999 || num < 100){
         printf("Inputted integer is not a positive 3-digit integer.\n");
         return 1;
@@ -92,12 +87,12 @@ int ask(char question[]){
 int main(){
     int Num1 = ask("Please enter the first  number: ");
     if (Num1 == -1){
-        printf("Error %d: %s\n", GetErrorCode(), GetErrorMsg());
+        printf("Error %d: Invalid Input!\n", GetErrorCode());
         return 1;
     }
     int Num2 = ask("Please enter the second number: ");
     if (Num2 == -1){
-        printf("Error %d: %s\n", GetErrorCode(), GetErrorMsg());
+        printf("Error %d: Invalid Input!\n", GetErrorCode());
         return 1;
     }
     Calculate(Num1, Num2);
