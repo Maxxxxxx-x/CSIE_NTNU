@@ -3,7 +3,7 @@
 
 char Separator[] = "--------\n";
 
-int GetDigit(int Num, int pos){
+int GetDigit(int32_t Num, int32_t pos){
  
     switch(pos){
         case 1:
@@ -20,15 +20,15 @@ int GetDigit(int Num, int pos){
     }
 }
 
-int FormatPrint(int First, int Second, int Result){
-    int AType;
+int FormatPrint(int32_t First, int32_t Second, int32_t Result){
+    int32_t AType;
     if (Result < 0){
         AType = -1;
         Result *= -1;
     }
-    int F1, F2, F3;
-    int S1, S2, S3;
-    int R1, R2, R3;
+    int32_t F1, F2, F3;
+    int32_t S1, S2, S3;
+    int32_t R1, R2, R3;
     F1 = GetDigit(First, 1);
     F2 = GetDigit(First, 2);
     F3 = GetDigit(First, 3);
@@ -82,9 +82,9 @@ int FormatPrint(int First, int Second, int Result){
 }
 
 int ask(char Question[]){
-    int Tmp;
+    int32_t Tmp;
     printf("%s", Question);
-    int state = scanf("%d", &Tmp);
+    int32_t state = scanf("%d", &Tmp);
     if (state == 0){
         printf("Unexpeted input.\n");
         return -1;
@@ -97,15 +97,15 @@ int ask(char Question[]){
 }
 
 int main(){
-    int First = ask("Please enter the first   number: ");
+    int32_t First = ask("Please enter the first  number: ");
     if (First == -1){
         return 1;
     }
-    int Second = ask("Please enter the second number: ");
+    int32_t Second = ask("Please enter the second number: ");
     if (Second == -1){
         return 1;
     }
-    int Result = First - Second;
+    int32_t Result = First - Second;
     FormatPrint(First, Second, Result);
     return 0;
 }
