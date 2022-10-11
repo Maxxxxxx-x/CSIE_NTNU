@@ -38,6 +38,9 @@ void Sort(int A, int B, int C, int D, int E){ //if it works, it works, dont ques
     int tmp4 = 0;
     int tmp5 = 0;
     int tmp;
+    //2 2 1
+    //a b | c d | e
+    //sort A B
     if (A > B){
         tmp1 = A;
         tmp2 = B;
@@ -45,7 +48,7 @@ void Sort(int A, int B, int C, int D, int E){ //if it works, it works, dont ques
         tmp1 = B;
         tmp2 = A;
     }
-    printf("DEBUG 1: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
+    //sort C D
     if (C > D){
         tmp3 = C;
         tmp4 = D;
@@ -53,86 +56,84 @@ void Sort(int A, int B, int C, int D, int E){ //if it works, it works, dont ques
         tmp3 = D;
         tmp4 = C;
     }
-    printf("DEBUG 2: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (tmp1 == tmp3){
-        tmp = tmp2;
-        tmp2 = tmp3;
-        tmp3 = tmp;
+    printf("DEBUG 1: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
+    //tmp 1 > tmp2, tmp3 > tmp4
+    if (tmp3 >= tmp1 ||  tmp3 > tmp2){
+        if (tmp3 == tmp1){
+            tmp = tmp2;
+            tmp2 = tmp3;
+            tmp2 = tmp;
+        }
+        if (tmp3 > tmp1){
+            tmp = tmp2;
+            tmp2 = tmp1;
+            tmp1 = tmp3;
+            tmp3 = tmp;
+        }
+        if (tmp3 > tmp2){
+            tmp = tmp2;
+            tmp2 = tmp3;
+            tmp3 = tmp;
+        }
+        if (tmp4 > tmp3){
+            tmp = tmp3;
+            tmp3 = tmp4;
+            tmp4 = tmp;
+        }
     }
-    printf("DEBUG 3: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (tmp2 < tmp3){
-        tmp = tmp2;
-        tmp2 = tmp3;
-        tmp3 = tmp;
-    }
-    printf("DEBUG 4: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (tmp3 < tmp4){
-        tmp = tmp3;
-        tmp3 = tmp4;
-        tmp4 = tmp;
-    }
-    printf("DEBUG 5: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (tmp4 < tmp5){
-        tmp = tmp4;
-        tmp4 = tmp5;
-        tmp5 = tmp;
-    }
-    printf("DEBUG 6: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (E <= tmp4) tmp5 = E;
-    printf("DEBUG 7: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-    if (E >= tmp4){
-         if (E >= tmp1){
+    if (E >= tmp1){
+        if (E > tmp1){
             tmp5 = tmp4;
             tmp4 = tmp3;
             tmp3 = tmp2;
-            tmp2 = tmp1;
+            tmp2 = tmp2;
             tmp1 = E;
-            Sorted_Type1 = tmp1;
-            Sorted_Type2 = tmp2;
-            Sorted_Type3 = tmp3;
-            Sorted_Type4 = tmp4;
-            Sorted_Type5 = tmp5;
-    printf("DEBUG 8: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-            return;
         }
-        if (E >= tmp2){
+        if (E == tmp1){
             tmp5 = tmp4;
             tmp4 = tmp3;
             tmp3 = tmp2;
             tmp2 = E;
-            Sorted_Type1 = tmp1;
-            Sorted_Type2 = tmp2;
-            Sorted_Type3 = tmp3;
-            Sorted_Type4 = tmp4;
-            Sorted_Type5 = tmp5;
-    printf("DEBUG 9: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-            return;
         }
-        if (E >= tmp3){
+    }
+    if (E >= tmp2){
+        if (E > tmp2){
+            tmp5 = tmp4;
+            tmp4 = tmp3;
+            tmp3 = tmp2;
+            tmp2 = E;
+        }
+        if (E == tmp2){
             tmp5 = tmp4;
             tmp4 = tmp3;
             tmp3 = E;
-            Sorted_Type1 = tmp1;
-            Sorted_Type2 = tmp2;
-            Sorted_Type3 = tmp3;
-            Sorted_Type4 = tmp4;
-            Sorted_Type5 = tmp5;
-    printf("DEBUG 10: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-            return;
         }
-        
-        tmp5 = tmp4;
-        tmp4 = E;
-
-            Sorted_Type1 = tmp1;
-            Sorted_Type2 = tmp2;
-            Sorted_Type3 = tmp3;
-            Sorted_Type4 = tmp4;
-            Sorted_Type5 = tmp5;
-    printf("DEBUG 11: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
-        return;
     }
-}
+    if (E >= tmp3){
+        if (E > tmp3){
+            tmp5 = tmp4;
+            tmp4 = tmp3;
+            tmp3 = E;
+        }
+        if (E == tmp3){
+            tmp5 = tmp4;
+            tmp4 = E;
+        }
+    }
+    if (E >= tmp4){
+        if (E > tmp4){
+            tmp5 = tmp4;
+            tmp4 = E;
+        }
+        if (E == tmp4){
+            tmp5 = E;
+        }
+    }
+    if (E < tmp1 && E < tmp2 && E < tmp3 && E < tmp4){
+        tmp5 = E;
+    }
+    printf("DEBUG 2: %d | %d | %d | %d | %d\n", tmp1, tmp2, tmp3, tmp4, tmp5);
+} 
 
 void CheckValidCards(int Card1, int Card2, int Card3, int Card4, int Card5){
     if (Card1 < 1 || Card1 > 52 || Card2 < 1 || Card2 > 52 || Card3 < 1 || Card3 > 52 || Card4 < 1 || Card4 > 52 || Card5 < 1 || Card5 > 52){
@@ -214,41 +215,42 @@ int main(){
     printf("Sorted Cards: %d | %d | %d | %d | %d\n", Sorted_Type1, Sorted_Type2, Sorted_Type3, Sorted_Type4, Sorted_Type5);
     printf("Card   Types: %d | %d | %d | %d | %d\n", Type1, Type2, Type3, Type4, Type5);
     if (IsStraightFlush(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Straight Flush");
+        printf("Straight Flush\n");
         return 0;
     } 
     if (IsFourOfAKind(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Four of a Kind");
+        printf("Four of a Kind\n");
         return 0;
     }  
     if (IsFullHouse(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Full House");
+        printf("Full House\n");
         return 0;
     }  
     if (IsFlush(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Flush");
+        printf("Flush\n");
         return 0;
     } 
     if (IsStraight(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Straight");
+        printf("Straight\n");
         return 0;
     }  
     if (IsThreeOfAKind(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Three of a Kind");
+        printf("Three of a Kind\n");
         return 0;
     } 
     if (IsTwoPairs(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("Two Pairs");
+        printf("Two Pairs\n");
         return 0;
     }  
     if (IsOnePair(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("One Pair");
+        printf("One Pair\n");
         return 0;
     } 
     if (IsHighCard(Card1, Card2, Card3, Card4, Card5) == 1){
-        printf("High Card");
+        printf("High Card\n");
         return 0;
     }
-    printf("Unrecognized hand");
+    printf("Unrecognized hand\n");
+    main();
     return 0;
 }

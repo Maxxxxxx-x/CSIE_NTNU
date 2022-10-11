@@ -8,30 +8,9 @@ int env_wx, env_ter;
 
 char SpaceFormat[4] = "    ";
 
-void HandleStatusMismatch(int Status){
-    if (Status != 1) {
-        printf("Invalid input.\n");
-        exit(1);
-    }
-}
-
-
-void HandleInvalidStat(char* ErrMsg){
-    printf("%s\n", ErrMsg);
-    exit(1);
-}
-
 
 void ValidateStat(int Stat, int StatType){
     switch(StatType){
-        case 0:
-        if (Stat < 0 || Stat > 100) HandleInvalidStat("Invalid level.");
-        break;
-
-        case 1:
-        if (Stat <= 0) HandleInvalidStat("Atk must be a non-zero integer.");
-        break;
-
         case 2:
         if (Stat < 0 || Stat > 7) HandleInvalidStat("Invalid Pokemon type.");
         break;
@@ -78,7 +57,10 @@ int GetInput(char* Question, int Type){
     int tmp;
     printf("%s%s: ", SpaceFormat, Question);
     int status = scanf("%d", &tmp);
-    HandleStatusMismatch(status);
+    if (Status != 1) {
+        printf("Invalid input.\n");
+        return 1;
+    }
     ValidateStat(tmp, Type);
     return tmp;
 }
@@ -298,15 +280,90 @@ int CalculateDmg(){
     return Dmg;
 }
 
-void GetAtkData(){
+void GetEnvData(){
+    printf("Environment\n");
+    printf("    weather: ");
+    tmp = scanf("%d", &env_wx);
+    if (tmp != 1){
+        printf("invalid input\n");
+    }
+    env_wx = GetInput("weather", 9);
+    env_ter = GetInput("terrain", 10);
+}
+
+int main(){
+    int tmp;
     printf("Attacker\n");
-    lvl = GetInput("level", 0);
-    atk_1 = GetInput("atk", 1);
-    type = GetInput("type", 2);
-    status = GetInput("status", 3);
-    mov_pwr = GetInput("move power", 4);
-    mov_type = GetInput("move type", 5);
-    mov_cat = GetInput("move category", 6);
+    printf("    level: ");
+    tmp = scanf("%d", &lvl);
+    if (tmp != 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (lvl < 0 || lvl > 100){
+        printf("Invalid level.\n");
+        return 1;
+    }
+    printf("    atk: ");
+    tmp = scanf("%d", &atk_1);
+    if (tmp != 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (atk_1 <= 0){
+        printf("atk must be a non-zero integer.\n");
+        return 1;
+    }
+    printf("    type: ");
+    tmp = scanf("%d", &type);
+    if (tmp!= 1){
+        printf("Invalid input\n");
+        return 1;
+    }
+    if (type < 0 || type > 7){
+        printf("Invalid pokemon type.\n");
+        return 1;
+    }
+    printf("    status: ");
+    tmp = scanf("%d", &status);
+    if (tmp!= 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (status < 0 || status > 2){
+        printf("Invalid status.\n");
+        return 1;
+    }
+    printf("    move power: ");
+    tmp = scanf("%d", &mov_pwr);
+    if (tmp!= 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (mov_pwr < 0 || mov_pwr > 100){
+        printf("Invalid move power.\n");
+        return 1;
+    }
+    printf("    move type: ");
+    tmp = scanf("%d", &mov_type);
+    if (tmp!= 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (mov_type < 0 || mov_type > 5){
+        printf("Invalid move type.\n");
+        return 1;
+    }
+    printf("    move category: ");
+    tmp = scanf("%d", &mov_category);
+    if (tmp!= 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (mov_category < 0 || mov_category > 5){
+        printf("Invalid move category.\n");
+        return 1;
+    }
     atk = atk_1;
     if (env_wx == 3 && type == 2){
         atk *= 0.5;
@@ -316,12 +373,29 @@ void GetAtkData(){
         atk *= 2;
         return;
     }
-}
 
-void GetTgtData(){
+    //Get Target data
     printf("Target\n");
-    tgt_def_1 = GetInput("def", 7);
-    tgt_type = GetInput("type", 8);
+    printf("    def: ");
+    tmp = scanf("%d", &tgt_def_1);
+    if (tmp != 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (tgt_def_1 <= 0){
+        printf("def must be a non-zero integer.\n");
+        return 1;
+    }
+    printf("    type: ");
+    tmp = scanf("%d", &tgt_type);
+    if (tmp!= 1){
+        printf("Invalid input.\n");
+        return 1;
+    }
+    if (tgt_type < 0 || tgt_type > 7){
+        printf("Invalif type.\n");
+        return 1;
+    }
     tgt_def = tgt_def_1;
     if (env_wx == 2 && tgt_type == 5){
         tgt_def *= 0.5;
@@ -331,17 +405,9 @@ void GetTgtData(){
         tgt_def *= 2;
         return;
     }
-}
 
-void GetEnvData(){
-    printf("Environment\n");
-    env_wx = GetInput("weather", 9);
-    env_ter = GetInput("terrain", 10);
-}
+    //get env data
 
-int main(){
-    GetAtkData();
-    GetTgtData();
     GetEnvData();
     int Dmg = CalculateDmg();
     printf("Damage --> %d\n", Dmg);
