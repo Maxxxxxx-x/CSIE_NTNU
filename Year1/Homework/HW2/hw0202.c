@@ -1,6 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-
-int main(){
-    return 0;
+void Throw(char Error[], int Code){
+    printf("%s", Error);
+    exit(Code);
 }
