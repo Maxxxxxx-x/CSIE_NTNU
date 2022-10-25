@@ -6,4 +6,4 @@ hw0202:
 
 
 hw0203:
-	gcc hw0203.c -o hw0203
+	gcc hw0203.c -lm -o hw0203
