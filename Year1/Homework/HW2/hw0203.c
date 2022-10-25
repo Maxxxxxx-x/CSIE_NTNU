@@ -45,7 +45,7 @@ void Calculate(uint Num){
         printf("%d = ", Digits[i]);
     }
     printf("%d\n", Sum);
-    if (Sum >= 10) Calculate(Sum);
+    Calculate(Sum);
     return;
 }
 
