@@ -21,7 +21,7 @@ int GetDigits(int64_t Num){
 void Calculate(uint Num){
     int length =  (int)(log10(Num) + 1);
     if (length < 0) Throw("Unexpected error: Array length is < 0", 1);
-    int Digits[(int)(log10(Num) + 1)];
+    int Digits[length];
     int Count = 0;
     int Sum = 0;
     if (Num < 10){
