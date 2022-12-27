@@ -3,24 +3,12 @@
 #include <string.h>
 #include <stdio.h>
 
-void ShowDetails(uint8_t code[], size_t size, size_t mem_limit){
-    puts("=======================================================================");
-    printf("Code: {");
-    for (int i = 0; i < size; i++){
-        printf("%d ", code[i]);
-    }
-    printf("}\n");
-    printf("Size: %d\n", size);
-    printf("mem limit: %d\n", mem_limit);
-    puts("=======================================================================");
-}
-
-
 void csie_interpreter(uint8_t code[], size_t size, size_t mem_limit){
-    ShowDetails(code, size, mem_limit);
     uint8_t *Memory = malloc(mem_limit);
-    puts("Memory allocated!");
-    puts("Outputs are as following:");
+    if (Memory == NULL){
+        fprintf(stderr, "Error: failed to allocate memory\n");
+        return;
+    }
     uint8_t *DPointer = Memory;
     const uint8_t *CmdPointer = code;
 
@@ -29,9 +17,17 @@ void csie_interpreter(uint8_t code[], size_t size, size_t mem_limit){
 
         switch(Cmd){
             case 0: //Increase data pointer
+                if (DPointer - Memory >= mem_limit - 1){
+                    fprintf(stderr, "Error: Data pointer out of bounds!\n");
+                    return;
+                }
                 DPointer++;
                 break;
             case 1: //Decrease data pointer
+                if (DPointer - Memory <= 0){
+                    fprintf(stderr, "Error: Data pointer out of bounds!\n");
+                    return;
+                }
                 DPointer--;
                 break;
             case 2: //Increase data pointer by 1
@@ -44,7 +40,9 @@ void csie_interpreter(uint8_t code[], size_t size, size_t mem_limit){
                 printf("%d\n", *DPointer);
                 break;
             case 5: //Read uint8)t from stdin
-                *DPointer = getchar();
+                if (scanf("%hhu", DPointer) != 1){
+                    fprintf(stderr, "Error: Failed to read input!\n");
+                }
                 break;
             case 6: //Move command pointer to matching cmd 7 if data pointer is 0
                 if (*DPointer == 0){

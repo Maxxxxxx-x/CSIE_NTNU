@@ -14,4 +14,4 @@ hw0505:
 	gcc -o hw0505 -o2 hw0505_main.c -L. -lhw0505 -wl,-rpath=
 
 test:
-	gcc hw0505.c test_hw0505.c -o hw0505
+	gcc hw0505.c test_hw0505.c -o hw0505_test
