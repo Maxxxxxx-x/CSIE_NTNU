@@ -11,7 +11,4 @@ hw0504:
 	gcc hw0504.c division.c -o hw0504
 
 hw0505:
-	gcc -o hw0505 -o2 hw0505_main.c -L. -lhw0505 -wl,-rpath=
-
-test:
-	gcc hw0505.c test_hw0505.c -o hw0505_test
+	gcc -shared -fPIC -o Libhw0505.so hw0505.c
